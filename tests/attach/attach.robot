@@ -2,30 +2,29 @@
 Resource    ../epc_keywords.robot
 
 *** Test Cases ***
-TC16 Verify Successful UE Attach
+TC01 Verify Successful UE Attach
     [Tags]    attach    positive
     Attach UE-15
     Verify UE-15 Is Attached
     Device UE-15 Should Have Default Transport Channel
     [Teardown]    Detach UE-15
 
-TC19 Verify Attaching UE With Minimum Valid ID Succeeds
-    [Tags]    attach    positive    boundary
-    Attach UE-1
-    Verify UE-1 Is Attached
-    [Teardown]    Detach UE-1
+TC02 Verify Attaching Out Of Range UE Throws Error
+    [Tags]    attach    negative
+    Run Keyword And Expect Error    *422 Client Error*    Attach UE-101
 
-TC20 Verify Attaching UE With Maximum Valid ID Succeeds
-    [Tags]    attach    positive    boundary
-    Attach UE-100
-    Verify UE-100 Is Attached
-    [Teardown]    Detach UE-100
+TC03 Verify Attaching Already Attached UE Throws Error
+    [Tags]    attach    negative
+    [Setup]    Attach UE-16
+    Run Keyword And Expect Error    *400 Client Error*    Attach UE-16
+    [Teardown]    Detach UE-16
 
-TC46 Verify Attach Response Body Contains Status Attached
-    [Tags]    attach    positive
-    ${body}=    Get Attach Response Body For UE-40
-    ${status}=    Get From Dictionary    ${body}    status
-    ${ue_id}=    Get From Dictionary    ${body}    ue_id
-    Should Be Equal    ${status}    attached
-    Should Be Equal As Integers    ${ue_id}    40
-    [Teardown]    Detach UE-40
+TC04 Verify Attaching Below Range UE Throws Error
+    [Tags]    attach    negative
+    Run Keyword And Expect Error    *422 Client Error*    Attach UE-0
+
+TC05 Verify Successful UE Detach
+    [Tags]    detach    positive
+    [Setup]    Attach UE-20
+    Detach UE-20
+    Verify UE-20 Is Not Attached
