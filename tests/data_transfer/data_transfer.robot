@@ -43,3 +43,15 @@ TC19 Verify Reported Throughput Is Within Configured Limit
     Start DL Transfer On UE-33 Bearer-9 Speed 5 Mbps
     Verify Reported Throughput Is Within 20 Percent Of Target On UE-33 Bearer-9
     [Teardown]    Detach UE-33
+
+TC20 Verify Stopped Bearer Reports Zero Throughput
+    [Tags]    transfer    negative
+    Reset EPC Network Simulator
+    Attach UE-35
+    Add Bearer-1 To UE-35
+    Start DL Transfer On UE-35 Bearer-1 Speed 2 Mbps
+    End Transfer On UE-35 Bearer-1
+    Sleep    2s
+    Verify No Transfer Is Active On UE-35 Bearer-1
+    Verify Transfer BPS Is Zero For UE And Bearer    35    1
+    [Teardown]    Detach UE-35
