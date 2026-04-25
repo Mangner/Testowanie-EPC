@@ -23,7 +23,10 @@ TC03 Verify Attaching Already Attached UE Throws Error
 
 TC04 Verify Attaching Below Range UE Throws Error
     [Tags]    attach    negative
-    Run Keyword And Expect Error    *422 Client Error*    Attach UE-0
+    Run Keyword And Expect Error    *422 Client Error*    Attach UE--1
+    Run Keyword And Expect Error    *422 Client Error*    Attach UE-101
+    Attach UE-50
+    [Teardown]    Detach UE-50
 
 TC05 Verify Successful UE Detach
     [Tags]    detach    positive
