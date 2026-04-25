@@ -4,6 +4,7 @@ Resource    ../epc_keywords.robot
 *** Test Cases ***
 TC01 Verify Successful UE Attach
     [Tags]    attach    positive
+    Reset EPC Network Simulator
     Attach UE-15
     Verify UE-15 Is Attached
     Device UE-15 Should Have Default Transport Channel
@@ -15,7 +16,8 @@ TC02 Verify Attaching Out Of Range UE Throws Error
 
 TC03 Verify Attaching Already Attached UE Throws Error
     [Tags]    attach    negative
-    [Setup]    Attach UE-16
+    Reset EPC Network Simulator
+    Attach UE-16
     Run Keyword And Expect Error    *400 Client Error*    Attach UE-16
     [Teardown]    Detach UE-16
 
@@ -25,6 +27,8 @@ TC04 Verify Attaching Below Range UE Throws Error
 
 TC05 Verify Successful UE Detach
     [Tags]    detach    positive
-    [Setup]    Attach UE-20
+    Reset EPC Network Simulator
+    Attach UE-20
     Detach UE-20
     Verify UE-20 Is Not Attached
+    [Teardown]    Run Keyword And Ignore Error    Detach UE-20

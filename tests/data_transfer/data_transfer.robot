@@ -39,7 +39,8 @@ TC18 Verify Ending Specific Bearer Transfer
 
 TC19 Verify Reported Throughput Is Within Configured Limit
     [Tags]    transfer    defect
-    [Setup]    Attach UE-33
+    Reset EPC Network Simulator
+    Attach UE-33
     Start DL Transfer On UE-33 Bearer-9 Speed 5 Mbps
     Sleep    3s
     Verify Reported Throughput Is Within 20 Percent Of Target On UE-33 Bearer-9
@@ -59,7 +60,8 @@ TC20 Verify Stopped Bearer Reports Zero Throughput
 
 TC24 Verify DL Transfer Does Not Generate Upload Traffic
     [Tags]    transfer    defect
-    [Setup]    Attach UE-38
+    Reset EPC Network Simulator
+    Attach UE-38
     Start DL Transfer On UE-38 Bearer-9 Speed 5 Mbps
     Sleep    3s
     Verify DL Transfer Has Zero Upload Throughput On UE-38 Bearer-9
