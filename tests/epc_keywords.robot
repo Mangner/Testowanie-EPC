@@ -140,3 +140,9 @@ Global Bearer Count Should Be Greater Than Zero
     [Documentation]    Pobiera statystyki globalne i sprawdza licznik bearerów.
     ${stats}=    Get UE Stats
     Should Be True    ${stats['bearer_count']} > 0
+
+Verify DL Transfer Has Zero Upload Throughput On UE-${ue_id} Bearer-${bearer_id}
+    [Documentation]    DL transfer powinien generować wyłącznie ruch odbiorczy (rx). tx_bps musi wynosić 0 — wartość niezerowa oznacza, że symulator niepoprawnie odzwierciedla pakiety w obu kierunkach.
+    ${info}=    Get Transfer Info For UE And Bearer    ${ue_id}    ${bearer_id}
+    Should Be Equal As Integers    ${info}[tx_bps]    0
+    ...    msg=DL transfer powinien mieć tx_bps=0, ale symulator zwrócił ${info}[tx_bps] bps

@@ -41,6 +41,7 @@ TC19 Verify Reported Throughput Is Within Configured Limit
     [Tags]    transfer    defect
     [Setup]    Attach UE-33
     Start DL Transfer On UE-33 Bearer-9 Speed 5 Mbps
+    Sleep    3s
     Verify Reported Throughput Is Within 20 Percent Of Target On UE-33 Bearer-9
     [Teardown]    Detach UE-33
 
@@ -55,3 +56,11 @@ TC20 Verify Stopped Bearer Reports Zero Throughput
     Verify No Transfer Is Active On UE-35 Bearer-1
     Verify Transfer BPS Is Zero For UE And Bearer    35    1
     [Teardown]    Detach UE-35
+
+TC24 Verify DL Transfer Does Not Generate Upload Traffic
+    [Tags]    transfer    defect
+    [Setup]    Attach UE-38
+    Start DL Transfer On UE-38 Bearer-9 Speed 5 Mbps
+    Sleep    3s
+    Verify DL Transfer Has Zero Upload Throughput On UE-38 Bearer-9
+    [Teardown]    Detach UE-38
